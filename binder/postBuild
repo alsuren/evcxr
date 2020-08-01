@@ -12,6 +12,7 @@ time cargo install evcxr_jupyter
 time evcxr_jupyter --install
 
 # Share our build directory between all executions.
+# See https://github.com/google/evcxr/issues/52#issuecomment-520266256
 export EVCXR_TMPDIR=$HOME/tmp/evcxr_build
 
 # Pre-populate build directory as part of the docker image.
