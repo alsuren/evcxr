@@ -6,5 +6,7 @@ echo '. $HOME/.cargo/env' >> ~/.bashrc
 echo '. $HOME/.cargo/env' >> ~/.profile
 source $HOME/.cargo/env
 
-cargo install evcxr_jupyter
+cargo install evcxr_jupyter evcxr_repl
+# This should bring in arrow and a bunch of other things
+time echo ':dep polars = "0.2"' | evcxr
 evcxr_jupyter --install
