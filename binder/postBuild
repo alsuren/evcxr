@@ -2,12 +2,16 @@
 
 set -euxo pipefail
 
-time curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain=nightly-2020-07-27 -y
-
 # Share our build directory between all executions.
 # See https://github.com/google/evcxr/issues/52#issuecomment-520266256
+mkdir $HOME/evcxr_build
 export EVCXR_TMPDIR=$HOME/evcxr_build
-source $HOME/.cargo/env
+
+# workaround for this error:
+# error: current package believes it's in a workspace when it's not:
+# current:   /home/alsuren/evcxr_build/Cargo.toml
+# workspace: /home/alsuren/Cargo.toml
+rm $HOME/Cargo.toml
 
 echo '
 export EVCXR_TMPDIR=$HOME/evcxr_build
@@ -17,6 +21,9 @@ echo '
 export EVCXR_TMPDIR=$HOME/evcxr_build
 source $HOME/.cargo/env
 ' >> ~/.profile
+
+time curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain=nightly-2020-07-27 -y
+source $HOME/.cargo/env
 
 time cargo install evcxr_jupyter
 time evcxr_jupyter --install
