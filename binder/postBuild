@@ -1,6 +1,6 @@
 #!/bin/bash
 
-curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain=nightly-2020-08-01 -y
+curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain=nightly-2020-07-27 -y
 
 echo '. $HOME/.cargo/env' >> ~/.bashrc
 echo '. $HOME/.cargo/env' >> ~/.profile
