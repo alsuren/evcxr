@@ -21,6 +21,7 @@ source $HOME/.cargo/env
 time cargo install evcxr_jupyter
 time evcxr_jupyter --install
 
+time cargo install evcxr_repl
 
 # Pre-populate build directory as part of the docker image.
-time echo ':dep arrow = "1.0"' | jupyter console --kernel=rust
+time echo ':dep arrow = "1.0"' | evcxr > /dev/null
