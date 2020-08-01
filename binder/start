@@ -2,4 +2,7 @@
 
 source $HOME/.cargo/env
 
+# Share our build directory between all executions.
+export EVCXR_TMPDIR=$HOME/tmp/evcxr_build
+
 exec "$@"

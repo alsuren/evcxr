@@ -1,12 +1,20 @@
 #!/bin/bash
 
-curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain=nightly-2020-07-27 -y
+set -euxo pipefail
+
+time curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain=nightly-2020-07-27 -y
 
 echo '. $HOME/.cargo/env' >> ~/.bashrc
 echo '. $HOME/.cargo/env' >> ~/.profile
 source $HOME/.cargo/env
 
-cargo install evcxr_jupyter evcxr_repl
-# This should bring in arrow and a bunch of other things
-time echo ':dep polars = "0.2"' | evcxr
-evcxr_jupyter --install
+time cargo install evcxr_jupyter
+time evcxr_jupyter --install
+
+# Share our build directory between all executions.
+export EVCXR_TMPDIR=$HOME/tmp/evcxr_build
+
+# Pre-populate build directory as part of the docker image.
+time cargo install  evcxr_repl
+time echo ':dep arrow = "1.0"' | evcxr > /dev/null
+time echo ':dep polars = "0.2"' | evcxr > /dev/null
