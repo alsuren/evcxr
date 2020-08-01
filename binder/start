@@ -1,8 +1,7 @@
 #!/bin/bash
 
-source $HOME/.cargo/env
-
 # Share our build directory between all executions.
 export EVCXR_TMPDIR=$HOME/evcxr_build
+source $HOME/.cargo/env
 
 exec "$@"
