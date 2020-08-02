@@ -22,13 +22,22 @@ export EVCXR_TMPDIR=$HOME/evcxr_build
 source $HOME/.cargo/env
 ' >> ~/.profile
 
-time curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain=nightly-2020-07-27 -y
+# FIXME: work out a way to pin to a specific version of nightly, for reproducibility.
+# Annoyingly :time_passes requires the toolchain to be called `nightly` and not
+# nightly-2020-07-27 ("error: toolchain 'nightly-x86_64-unknown-linux-gnu' is not installed")
+time curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain=nightly -y
 source $HOME/.cargo/env
 
+time cargo install sccache
 time cargo install evcxr_jupyter
 time evcxr_jupyter --install
 
 time cargo install evcxr_repl
 
 # Pre-populate build directory as part of the docker image.
-time echo ':dep arrow = "1.0"' | evcxr > /dev/null
+time echo ':help
+:time_passes
+:timing
+:linker
+:dep arrow = "1.0"
+' | evcxr
